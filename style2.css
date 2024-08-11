@@ -1,0 +1,60 @@
+
+/* let's put the container in the center */
+
+body{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.container {
+    max-width:600px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* background-color: gray; */
+}
+
+/* body .container ol{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    padding-right: 5rem;
+} */
+
+body .container ol li > *{
+    /* background-color: aqua; */
+    padding: 0.3rem;
+    margin: 1rem;
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+#task-form #task-input{
+    padding: 1rem 3rem;
+}
+
+
+#task-form #submit-button{
+    padding: 1rem;
+}
+
+button{
+    background-color: green;
+}
+
+button:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+button:click{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
