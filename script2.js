@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded",function(){
     const taskForm = document.getElementById('task-form');
     const taskInput = document.getElementById('task-input');
     const taskList = document.getElementById('task-list');
+    const deadlineInput = document.getElementById('setDeadline');
     let tasks = [];
 
     // retrieving the tasks from localStorage
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded",function(){
     }  
 
     // populate tasks from localStorage
-    tasks.forEach(task => addTask(task.text,task.completed));
+    tasks.forEach(task => addTask(task.text,task.completed,task.deadline));
 
     // eventListener for adding tasks
     taskForm.addEventListener('submit', (event) => {
@@ -26,16 +27,18 @@ document.addEventListener("DOMContentLoaded",function(){
         event.preventDefault();
         // the trim() function is simply to remove the spaces at the start and the end of the text entered 
         const taskText = taskInput.value.trim();
+        const deadline = deadlineInput.value;
         if(taskText !== ""){
-            addTask(taskText);
+            addTask(taskText,false,deadline);
             taskInput.value = "";
+            deadlineInput.value = "";
         }
     })
 
     // Function to add a new task
     // the two arguments task , task the tasks being added 
     // isCompleted = false, all the tasks by default are not completed
-    function addTask(taskText,isCompleted=false){
+    function addTask(taskText,isCompleted=false,deadline=""){
         // creating a <li></li> element to keep all our tasks
         // giving them a className of taskItem
         // if the tasks is completed the className of 'completed' shall be automatically added to that item
@@ -51,6 +54,7 @@ document.addEventListener("DOMContentLoaded",function(){
             <span>${taskText}</span>
             <button class="complete-btn">Complete</button>
             <button class="delete-btn">Delete</button>
+            <span class="deadline">${deadline ? new Date(deadline).toLocaleDateString() : ""}</span>
         `;
         taskList.appendChild(taskItem);
         saveTasks();
@@ -87,7 +91,8 @@ document.addEventListener("DOMContentLoaded",function(){
         try{
             const tasks = Array.from(taskList.children).map(taskItem => ({
                 text : taskItem.querySelector('span').innerText,
-                completed: taskItem.classList.contains('completed')
+                completed: taskItem.classList.contains('completed'),
+                deadline : taskItem.querySelector('.deadline').innerText
             }))
             localStorage.setItem('tasks',JSON.stringify(tasks));
         }catch(error){
