@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded",function(){
             const tasks = Array.from(taskList.children).map(taskItem => ({
                 text : taskItem.querySelector('span').innerText,
                 completed: taskItem.classList.contains('completed'),
-                deadline : taskItem.querySelector('.deadline').innerText
+                deadline : taskItem.querySelector('.deadline').innerText,
             }))
             localStorage.setItem('tasks',JSON.stringify(tasks));
         }catch(error){
